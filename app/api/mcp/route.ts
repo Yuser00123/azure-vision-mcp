@@ -26,12 +26,12 @@ const handler = createMcpHandler((server) => {
     },
     async ({ base64Data }) => {
       try {
-        // Strip data URL prefix if present (e.g., "data:image/jpeg;base64,")
+        // Strip data URL prefix if present
         const cleanBase64 = base64Data.replace(/^data:image\/\w+;base64,/, '');
         const imageBuffer = Buffer.from(cleanBase64, 'base64');
 
-        // Pass function returning stream/buffer to Azure Vision SDK
-        const results = await client.analyzeImageInStream(() => imageBuffer, {
+        // Pass Buffer directly as the first argument
+        const results = await client.analyzeImageInStream(imageBuffer as any, {
           visualFeatures: ['Description', 'Tags', 'Categories', 'Objects']
         });
 
@@ -72,7 +72,8 @@ const handler = createMcpHandler((server) => {
         const cleanBase64 = base64Data.replace(/^data:image\/\w+;base64,/, '');
         const imageBuffer = Buffer.from(cleanBase64, 'base64');
 
-        const ocrResult = await client.recognizePrintedTextInStream(true, () => imageBuffer);
+        // Pass Buffer directly as the first argument
+        const ocrResult = await client.recognizePrintedTextInStream(true, imageBuffer as any);
         const lines: string[] = [];
 
         for (const region of ocrResult.regions || []) {
