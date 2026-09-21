@@ -1,0 +1,6 @@
+{
+  "name": "Azure Vision MCP Server",
+  "description": "Model Context Protocol (MCP) server that connects AI assistants to Azure AI Vision for image analysis and OCR",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
